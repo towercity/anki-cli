@@ -22,7 +22,7 @@ const  parseArgumentsIntoOptions = (rawArgs) => {
 
 async function selectScript(options) {
     // if a command has been entered, proceed
-    if (options.cmd) {
+    if (options.cmd === '00change' || options.cmd === 'correct-decks') {
         return { 
             ...options
         }
@@ -34,7 +34,7 @@ async function selectScript(options) {
             type: 'list',
             name: 'cmd',
             message: 'Please select a script to run',
-            choices: ['00change', 'correct decks']
+            choices: ['00change', 'correct-decks']
         });
         return {
             ...options,
@@ -46,5 +46,14 @@ async function selectScript(options) {
 export async function cli(args) {
     let options = parseArgumentsIntoOptions(args);
     options = await selectScript(options);
-    console.log(options);
+    console.log(options)
+    
+    switch(options.cmd) {
+        case '00change':
+            changeSubs();
+            break;
+        case 'correct-decks':
+            correctDeck();
+            break;
+    }
 }
