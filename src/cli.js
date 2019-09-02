@@ -1,5 +1,3 @@
-const cli = (args) => {
+export function cli(args) {
     console.log(args);
 }
-
-export default cli;
