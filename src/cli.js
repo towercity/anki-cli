@@ -1,23 +1,14 @@
-import arg from 'arg';
 import inquirer from 'inquirer';
 
 import correctDeck from '../src/scripts/correctDecks';
 import changeSubs from '../src/scripts/changeSubs';
 
 const  parseArgumentsIntoOptions = (rawArgs) => {
-    const args = arg(
-      {
-        '--help': Boolean,
-        '-h': '--help'
-      },
-      {
-        argv: rawArgs.slice(2),
-      }
-    );
+    const [cmd, ...args] = rawArgs.slice(2);
     return {
-      help: args['--help'] || false,
-      cmd: args._[0]
-    };
+        cmd: cmd,
+        args: args
+    }
 }
 
 async function selectScript(options) {
@@ -30,6 +21,7 @@ async function selectScript(options) {
     // otherwise, a selection process is run
     } else {
         // select possible commands
+        console.log('no included script selected');
         const answers = await inquirer.prompt({
             type: 'list',
             name: 'cmd',
@@ -55,6 +47,10 @@ export async function cli(args) {
             correctDeck();
             break;
         case 'exit':
+            console.log('exiting scripts...\n');
+            break;
+        default:
+            console.log('no script selected');
             console.log('exiting scripts...\n');
             break;
     }
