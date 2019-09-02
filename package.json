@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "A simple cli to run extra anki functions",
   "main": "src/main.js",
+  "bin": {
+    "anki-cli": "bin/anki-cli"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
