@@ -2,4 +2,4 @@ const cli = (args) => {
     console.log(args);
 }
 
-export default cli;     
+export default cli;
