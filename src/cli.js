@@ -1,7 +1,12 @@
 import inquirer from 'inquirer';
+import cliScripts from '../src/scripts/all';
 
 import correctDeck from '../src/scripts/correctDecks';
 import changeSubs from '../src/scripts/changeSubs';
+
+// dynamically generated list of scripts from cliScripts and adds an exit function
+const scriptNames = Object.keys(cliScripts);
+scriptNames.push('exit');
 
 const  parseArgumentsIntoOptions = (rawArgs) => {
     const [cmd, ...args] = rawArgs.slice(2);
@@ -13,7 +18,8 @@ const  parseArgumentsIntoOptions = (rawArgs) => {
 
 async function selectScript(options) {
     // if a command has been entered, proceed
-    if (options.cmd === '00change' || options.cmd === 'correct-decks') {
+    console.log(scriptNames, options.cmd)
+    if (scriptNames.find(cmd => cmd === options.cmd)) {
         return { 
             ...options
         }
@@ -26,7 +32,7 @@ async function selectScript(options) {
             type: 'list',
             name: 'cmd',
             message: 'Please select a script to run',
-            choices: ['00change', 'correct-decks', 'exit']
+            choices: scriptNames
         });
         return {
             ...options,
@@ -36,6 +42,8 @@ async function selectScript(options) {
 }
 
 export async function cli(args) {
+    console.log('scripts', scriptNames);
+
     let options = parseArgumentsIntoOptions(args);
     options = await selectScript(options);
     
