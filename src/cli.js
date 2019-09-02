@@ -34,7 +34,7 @@ async function selectScript(options) {
             type: 'list',
             name: 'cmd',
             message: 'Please select a script to run',
-            choices: ['00change', 'correct-decks']
+            choices: ['00change', 'correct-decks', 'exit']
         });
         return {
             ...options,
@@ -46,7 +46,6 @@ async function selectScript(options) {
 export async function cli(args) {
     let options = parseArgumentsIntoOptions(args);
     options = await selectScript(options);
-    console.log(options)
     
     switch(options.cmd) {
         case '00change':
@@ -54,6 +53,9 @@ export async function cli(args) {
             break;
         case 'correct-decks':
             correctDeck();
+            break;
+        case 'exit':
+            console.log('exiting scripts...\n');
             break;
     }
 }
