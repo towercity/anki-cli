@@ -37,6 +37,8 @@ async function selectScript(options) {
 }
 
 export async function cli(args) {
+    console.log('scripts', scriptNames);
+
     let options = parseArgumentsIntoOptions(args);
     options = await selectScript(options);
 
