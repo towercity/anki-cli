@@ -5,7 +5,7 @@ const Anki = {
     url: 'http://127.0.0.1:8765',
 
     // Basic AnkiConnect call boilerplate
-    request: (action, params) => {
+    request: async (action, params) => {
         return axios
             .post(Anki.url, {
                 "action": action,
@@ -74,6 +74,12 @@ const Anki = {
             "cards": cardIds,
             "deck": newDeck
         })
+    },
+
+    // Recieve a list of user's tags
+    // No input, returns an array of strings
+    getTags: async () => {
+        return await Anki.request("getTags");
     }
 }
 
