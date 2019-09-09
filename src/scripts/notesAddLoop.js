@@ -64,31 +64,35 @@ const notesAddLoop = async (args) => {
         let jishoResp = await jisho.searchForPhrase(vocab.term);
         jishoResp = jishoResp.data;
         
+        // TODO: make the following word selection function work
+        // (currently just y/n's the first result)
+        // read some notes on how here: https://zellwk.com/blog/async-await-in-loops/
+        
         // listJishoTerms(jishoResp).forEach(def => console.log(def));
         // loops thru each returned term and asks the user if they want to add the term
         // uses Array.some() so the loop can break once the term is chosen
-        listJishoTerms(jishoResp).some(async (term) => {
-            console.log('Selected Term:'.cyan);
-            console.log(
-                term[0].green, // the term, highlighted
-                term[1] // the definition
-            );
+        // listJishoTerms(jishoResp).some(async (term) => {
+        //     console.log('Selected Term:'.cyan);
+        //     console.log(
+        //         term[0].green, // the term, highlighted
+        //         term[1] // the definition
+        //     );
 
-            inquirer.prompt({
-                type: 'confirm',
-                name: 'yes',
-                message: 'Add this term?'
-            });
+        //     inquirer.prompt({
+        //         type: 'confirm',
+        //         name: 'yes',
+        //         message: 'Add this term?'
+        //     });
             
-            // if the term is selected, update the vocab.term to match then
-            // return true to leave the loop
-            if (true) {
-                // splits everything after the linebreak: this cuts everything off but the selected term
-                vocab.term = term[0]
-            }
+        //     // if the term is selected, update the vocab.term to match then
+        //     // return true to leave the loop
+        //     if (true) {
+        //         // splits everything after the linebreak: this cuts everything off but the selected term
+        //         vocab.term = term[0]
+        //     }
 
-            // return false;
-        });
+        //     // return false;
+        // });
 
         console.log('vocab', vocab);
         vocabArchive.push(vocab);
