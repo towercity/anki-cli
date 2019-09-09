@@ -94,6 +94,15 @@ const notesAddLoop = async (args) => {
         //     // return false;
         // });
 
+        // pull the first terms from the jisho response and confirms if the user wants to add it
+        const jishoTerms = listJishoTerms(jishoResp)[0];
+        // checks that the word is not blank
+        if(jishoTerms) {
+            console.log('\nSelected Term:'.cyan);
+            console.log(jishoTerms[0].green); // the term, highlighted
+            console.log(jishoTerms[1]); // the definition
+        }
+
         console.log('vocab', vocab);
         vocabArchive.push(vocab);
         console.log('current archive', vocabArchive);
