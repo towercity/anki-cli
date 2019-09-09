@@ -96,19 +96,20 @@ const notesAddLoop = async (args) => {
 
         // pull the first terms from the jisho response and confirms if the user wants to add it
         const jishoTerms = listJishoTerms(jishoResp)[0];
-        // checks that the word is not blank
+        // checks that the word is not blank before running logic
         if(jishoTerms) {
             console.log('\nSelected Term:'.cyan);
             console.log(jishoTerms[0].green); // the term, highlighted
             console.log(jishoTerms[1]); // the definition
+
+            // return results 
+            console.log('vocab', vocab);
+            vocabArchive.push(vocab);
+            console.log('current archive', vocabArchive);
+        } else {
+            console.log('No term found, re-running search');
         }
-
-        console.log('vocab', vocab);
-        vocabArchive.push(vocab);
-        console.log('current archive', vocabArchive);
     }
-
-    console.log('ended loop');
 }
 
 export default notesAddLoop;
