@@ -1,5 +1,6 @@
 import inquirer from 'inquirer';
 import cliScripts from '../src/scripts/all';
+import Anki from '../src/services/Anki';
 
 // dynamically generated list of scripts from cliScripts and adds an exit function
 const scriptNames = Object.keys(cliScripts);
@@ -37,6 +38,9 @@ async function selectScript(options) {
 }
 
 export async function cli(args) {
+    console.log('syncing notes...');
+    await Anki.sync();
+
     console.log('scripts', scriptNames);
 
     let options = parseArgumentsIntoOptions(args);
