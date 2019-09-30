@@ -20,8 +20,12 @@ const listJishoTerms = (jishoResp) => {
                                .reduce((acc, cur, idx) => {
                                     return acc + `${idx+1}. ${cur}\n`;
                                }, '')
+        
+        const pos = term.senses[0].parts_of_speech[0].includes('verb') ||
+                    term.senses[0].parts_of_speech[0].includes('Verb') ?
+                    'verb' : 'non-verb';
 
-        return [`${termString}`, `${def}`];
+        return [`${termString}`, `${def}`, `${pos}`];
     });
 }
 
@@ -65,11 +69,13 @@ const notesAddLoop = async (args) => {
         // pull data from jisho
         let jishoResp = await jisho.searchForPhrase(vocab.term);
         jishoResp = jishoResp.data;
+        // console.log(jishoResp[0].senses)
 
         // pull the first terms from the jisho response and confirms if the user wants to add it
         const jishoTerms = listJishoTerms(jishoResp)[0];
         // checks that the word is not blank before running logic
         if(jishoTerms) {
+            console.log(jishoTerms)
             console.log('\nSelected Term:'.cyan);
             console.log(jishoTerms[0].green); // the term, highlighted
             console.log(jishoTerms[1]); // the definition
@@ -93,11 +99,11 @@ const notesAddLoop = async (args) => {
                     Anki.addTags(tag, noteExists);
                 } else {
                     const dictDir = path.join(__dirname, '../../node_modules/kuromoji/dict');
-                    kuromoji.builder({ dicPath: dictDir }).build(function (err, tokenizer) {
-                        // tokenizer is ready
-                        var path = tokenizer.tokenize(jishoTerms[0]);
-                        console.log(path);
-                    });
+                    // kuromoji.builder({ dicPath: dictDir }).build(function (err, tokenizer) {
+                    //     // tokenizer is ready
+                    //     var path = tokenizer.tokenize(jishoTerms[0]);
+                    //     console.log(path);
+                    // });
 
                     console.log('not');
                 }
