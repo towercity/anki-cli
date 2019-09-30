@@ -87,7 +87,8 @@ const notesAddLoop = async (args) => {
                 
                 if(noteExists.length) {
                     // add tag to card
-                    console.log('exists');
+                    console.log(`Note already exists in database... adding tag ${`"${tag}"`.green}`);
+                    Anki.addTags(tag, noteExists);
                 } else {
                     console.log('not');
                 }
