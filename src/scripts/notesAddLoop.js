@@ -2,6 +2,8 @@ import Anki from '../services/Anki';
 import inquirer from 'inquirer';
 import colors from 'colors';
 import jishoApi from 'unofficial-jisho-api';
+import path from 'path';
+import kuromoji from 'kuromoji';
 
 const jisho = new jishoApi();
 
