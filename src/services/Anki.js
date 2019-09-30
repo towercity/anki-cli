@@ -4,6 +4,14 @@ const Anki = {
     // The standard AnkiConnect url
     url: 'http://127.0.0.1:8765',
 
+    // calls a sync, so data is consistant across devices
+    sync: () => {
+        axios.post(Anki.url, {
+                "action": "sync",
+                "version": 6
+            })
+    },
+
     // Basic AnkiConnect call boilerplate
     request: async (action, params) => {
         return axios
