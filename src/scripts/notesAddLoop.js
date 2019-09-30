@@ -75,14 +75,17 @@ const notesAddLoop = async (args) => {
             var confirm = await inquirer.prompt({
                 type:'confirm',
                 name: 'addTerm',
-                message: 'Add? (y/n)'
+                message: 'Add?'
             });
 
             if(confirm.addTerm) {
                 // add the term
 
-                //TODO: search Anki for the term in Japanese note style
-                //      if there, break
+                //search Anki for the term in Japanese note style; returns a truthy thing if exits
+                const noteExists = await Anki
+                    .findNotes('Vocabulary:' + jishoTerms[0]);
+                
+                //      if there, add tag and break
                 //      if not, search in subs
                 //          if there, add 00change tag and term into 'notes'
                 //          if not, add a card with jisho def
