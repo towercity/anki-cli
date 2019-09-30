@@ -32,6 +32,6 @@ __Notes:__
 
 The script will automatically change the subs2srs card into a vocab card and move it into the proper deck (selcted in `scr/data/deck_ids`). It can handle any number of changes in one call, so it helps to have a lot built up.
 
-### correct-decks ###
+### correct-decks (not currently active) ###
 
 My [Adaptive Vobabulary Flashcards Template](https://github.com/towercity/anki-adaptive-vobabulary-flashcards) requires your listening cards to be saved into a separate deck to function properly. This script moves misplaced cards into thier proper decks (selcted in `scr/data/deck_ids`). Simply run and done: `anki-cli correct-decks`.
