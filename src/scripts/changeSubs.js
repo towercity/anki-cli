@@ -79,7 +79,7 @@ const changeSubs = () => {
                             const meaning = subdefs.join('; ');
 
                             const newNote = {
-                                "deckName": DECK_IDS.subs,
+                                "deckName": DECK_IDS.main,
                                 "modelName": MODELS.japanese,
                                 "fields": {
                                     "Vocabulary": note.fields.Note.value,

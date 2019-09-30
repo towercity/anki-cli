@@ -24,7 +24,7 @@ __Notes:__
 
 ### 00change ###
 
-`00change` takes subs2srs cards and turns them vocabulary review cards. To use:
+`00change` takes 2srs cards and turns them vocabulary review cards. To use:
 
 1. Copy the vocab word you'd like to study into the 'note' field of your subs2srs card
 2. tag the card '00change'
