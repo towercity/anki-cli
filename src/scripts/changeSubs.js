@@ -29,6 +29,9 @@ const jisho = new jishoApi();
 // }]
 
 const changeSubs = () => {
+    logResult('syncing notes...')
+    Anki.sync();
+
     logResult('running function...');
 
     logResult('gathering notes...');
