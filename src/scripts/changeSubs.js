@@ -89,7 +89,7 @@ const changeSubs = () => {
                                     "Sentence-1-Reading": note.fields["Sentence-Reading"].value,
                                     "Sentence-1-English": note.fields.English.value,
                                     "Sentence-1-Audio": note.fields.Audio.value,
-                                    "Sentence-1-Image": note.fields.Image.value
+                                    // "Sentence-1-Image": note.fields.Image.value
                                 },
                                 tags: newTags
                             }
