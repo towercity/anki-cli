@@ -20,10 +20,21 @@ const listJishoTerms = (jishoResp) => {
                                .reduce((acc, cur, idx) => {
                                     return acc + `${idx+1}. ${cur}\n`;
                                }, '')
-        
-        const pos = term.senses[0].parts_of_speech[0].includes('verb') ||
-                    term.senses[0].parts_of_speech[0].includes('Verb') ?
-                    'verb' : 'non-verb';
+
+        let pos = '';
+        if ( 
+            term.senses[0].parts_of_speech[0].includes('verb') || 
+            term.senses[0].parts_of_speech[0].includes('Verb')) {
+                pos = 'verb'
+            }
+        else if (
+            term.senses[0].parts_of_speech[0].includes('adjective') || 
+            term.senses[0].parts_of_speech[0].includes('Adjective')) {
+                pos = 'adjective'
+            }
+        else {
+                pos = 'other';
+        }
 
         return [`${termString}`, `${def}`, `${pos}`];
     });
