@@ -85,7 +85,12 @@ const notesAddLoop = async (args) => {
                 const noteExists = await Anki
                     .findNotes('Vocabulary:' + jishoTerms[0]);
                 
-                //      if there, add tag and break
+                if(noteExists.length) {
+                    // add tag to card
+                    console.log('exists');
+                } else {
+                    console.log('not');
+                }
                 //      if not, search in subs
                 //          if there, add 00change tag and term into 'notes'
                 //          if not, add a card with jisho def
