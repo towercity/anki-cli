@@ -13,6 +13,7 @@
     "axios": "^0.19.0",
     "esm": "^3.2.25",
     "inquirer": "^7.0.0",
+    "parse-japanese": "^0.1.0",
     "unofficial-jisho-api": "^2.0.4"
   },
   "keywords": [
