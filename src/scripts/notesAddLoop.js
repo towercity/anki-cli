@@ -80,6 +80,12 @@ const notesAddLoop = async (args) => {
 
             if(confirm.addTerm) {
                 // add the term
+
+                //TODO: search Anki for the term in Japanese note style
+                //      if there, break
+                //      if not, search in subs
+                //          if there, add 00change tag and term into 'notes'
+                //          if not, add a card with jisho def
                 console.log('vocab', vocab);
                 vocabArchive.push(jishoTerms[0]);
             }
