@@ -2,6 +2,8 @@ import changeSubs from '../scripts/changeSubs';
 import correctDeck from '../scripts/correctDecks';
 import notesAddLoop from '../scripts/notesAddLoop';
 
+import path from 'path';
+
 import kuromoji from 'kuromoji';
 
 const test = () => {
@@ -10,7 +12,9 @@ const test = () => {
 
     console.log(text);
 
-    kuromoji.builder({ dicPath: "node_modules/kuromoji/dict" }).build(function (err, tokenizer) {
+    const dir = path.join(__dirname, '../../node_modules/kuromoji/dict');
+
+    kuromoji.builder({ dicPath: dir }).build(function (err, tokenizer) {
         // tokenizer is ready
         var path = tokenizer.tokenize(text);
         console.log(path);
