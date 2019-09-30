@@ -4,7 +4,7 @@ import notesAddLoop from '../scripts/notesAddLoop';
 
 const cliScripts = {
     '00change': changeSubs,
-    'correct-decks': correctDeck,
+    // 'correct-decks': correctDeck, // hide it b/c i'm not using it now
     'notes-add-loop': notesAddLoop
 }
 

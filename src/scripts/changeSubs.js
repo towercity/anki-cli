@@ -124,7 +124,7 @@ const changeSubs = () => {
                                     )
 
                                     // run the deck fixing function here
-                                    correctDecks();
+                                    // correctDecks();
 
                                     // Deltes the old notes
                                     logResult('deleting old notes...');
