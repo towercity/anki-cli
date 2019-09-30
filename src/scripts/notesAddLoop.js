@@ -22,18 +22,18 @@ const listJishoTerms = (jishoResp) => {
                                }, '')
 
         let pos = '';
-        if ( 
+        if ( // its a verb
             term.senses[0].parts_of_speech[0].includes('verb') || 
             term.senses[0].parts_of_speech[0].includes('Verb')) {
-                pos = 'verb'
+                pos = 'verb' // call it verb
             }
-        else if (
+        else if ( // its an adjective
             term.senses[0].parts_of_speech[0].includes('adjective') || 
             term.senses[0].parts_of_speech[0].includes('Adjective')) {
-                pos = 'adjective'
+                pos = 'adjective' // call it adjective
             }
-        else {
-                pos = 'other';
+        else { // just call it what it is
+                pos = term.senses[0].parts_of_speech[0];
         }
 
         return [`${termString}`, `${def}`, `${pos}`];
@@ -89,6 +89,7 @@ const notesAddLoop = async (args) => {
             console.log(jishoTerms)
             console.log('\nSelected Term:'.cyan);
             console.log(jishoTerms[0].green); // the term, highlighted
+            console.log('Part of Speech:', jishoTerms[2]); // the pos
             console.log(jishoTerms[1]); // the definition
 
             var confirm = await inquirer.prompt({
