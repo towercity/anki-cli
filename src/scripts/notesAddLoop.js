@@ -50,7 +50,7 @@ const notesAddLoop = async (args) => {
         let vocab = await inquirer.prompt({
             type: 'input',
             name: 'term',
-            message: 'Enter term:'
+            message: 'Enter term　(or \'q\' to quit):'
         })
 
         // exit condition
@@ -63,36 +63,6 @@ const notesAddLoop = async (args) => {
         // pull data from jisho
         let jishoResp = await jisho.searchForPhrase(vocab.term);
         jishoResp = jishoResp.data;
-        
-        // TODO: make the following word selection function work
-        // (currently just y/n's the first result)
-        // read some notes on how here: https://zellwk.com/blog/async-await-in-loops/
-        
-        // listJishoTerms(jishoResp).forEach(def => console.log(def));
-        // loops thru each returned term and asks the user if they want to add the term
-        // uses Array.some() so the loop can break once the term is chosen
-        // listJishoTerms(jishoResp).some(async (term) => {
-        //     console.log('Selected Term:'.cyan);
-        //     console.log(
-        //         term[0].green, // the term, highlighted
-        //         term[1] // the definition
-        //     );
-
-        //     inquirer.prompt({
-        //         type: 'confirm',
-        //         name: 'yes',
-        //         message: 'Add this term?'
-        //     });
-            
-        //     // if the term is selected, update the vocab.term to match then
-        //     // return true to leave the loop
-        //     if (true) {
-        //         // splits everything after the linebreak: this cuts everything off but the selected term
-        //         vocab.term = term[0]
-        //     }
-
-        //     // return false;
-        // });
 
         // pull the first terms from the jisho response and confirms if the user wants to add it
         const jishoTerms = listJishoTerms(jishoResp)[0];
@@ -104,7 +74,7 @@ const notesAddLoop = async (args) => {
 
             // return results 
             console.log('vocab', vocab);
-            vocabArchive.push(vocab);
+            vocabArchive.push(jishoTerms[0]);
             console.log('current archive', vocabArchive);
         } else {
             console.log('No term found, re-running search');
