@@ -88,6 +88,15 @@ const Anki = {
     // No input, returns an array of strings
     getTags: async () => {
         return await Anki.request("getTags");
+    },
+
+    // Add a tag to notes
+    // takes in a tag stringand an array of note IDs
+    addTags: (tag, noteIds) => {
+        return Anki.request("addTags", {
+            "notes": noteIds,
+            "tags": tag
+        });
     }
 }
 
