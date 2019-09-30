@@ -72,9 +72,19 @@ const notesAddLoop = async (args) => {
             console.log(jishoTerms[0].green); // the term, highlighted
             console.log(jishoTerms[1]); // the definition
 
+            var confirm = await inquirer.prompt({
+                type:'confirm',
+                name: 'addTerm',
+                message: 'Add? (y/n)'
+            });
+
+            if(confirm.addTerm) {
+                // add the term
+                console.log('vocab', vocab);
+                vocabArchive.push(jishoTerms[0]);
+            }
+
             // return results 
-            console.log('vocab', vocab);
-            vocabArchive.push(jishoTerms[0]);
             console.log('current archive', vocabArchive);
         } else {
             console.log('No term found, re-running search');
