@@ -22,5 +22,8 @@
     "ankiconnect"
   ],
   "author": "Matthew Nerger",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "colors": "^1.4.0"
+  }
 }
