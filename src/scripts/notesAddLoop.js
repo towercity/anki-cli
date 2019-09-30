@@ -92,6 +92,13 @@ const notesAddLoop = async (args) => {
                     console.log(`Note already exists in database... adding tag ${`"${tag}"`.green}`);
                     Anki.addTags(tag, noteExists);
                 } else {
+                    const dictDir = path.join(__dirname, '../../node_modules/kuromoji/dict');
+                    kuromoji.builder({ dicPath: dictDir }).build(function (err, tokenizer) {
+                        // tokenizer is ready
+                        var path = tokenizer.tokenize(jishoTerms[0]);
+                        console.log(path);
+                    });
+
                     console.log('not');
                 }
                 //      if not, search in subs
