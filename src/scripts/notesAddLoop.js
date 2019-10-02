@@ -109,9 +109,18 @@ const notesAddLoop = async (args) => {
                     console.log(`Note already exists in database... adding tag ${`"${tag}"`.green}`);
                     Anki.addTags(tag, noteExists);
                 } else {
-                   
-
-                    console.log('not');
+                    let rootWord = jishoTerms[0];
+                    
+                    // tests if the word's an い adjective
+                    if (jishoTerms[2] === 'adjective' && rootWord[rootWord.length - 1] === 'い') {
+                        // if so, remove the い
+                        rootWord = rootWord.slice(0,-1);
+                        // note that this likely won't cause an issue with those few な addjectives that end with
+                        // い, as the search term will still function
+                    } else if (jishoTerms[2] === 'verb') {
+                        console.log('verb');
+                        // remove the last char only? all verbs end with the u/ru anywho?
+                    }
                 }
                 //      if not, search in subs
                 //          if there, add 00change tag and term into 'notes'
