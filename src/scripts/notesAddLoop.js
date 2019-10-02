@@ -2,8 +2,8 @@ import Anki from '../services/Anki';
 import inquirer from 'inquirer';
 import colors from 'colors';
 import jishoApi from 'unofficial-jisho-api';
-import path from 'path';
 import MODELS from '../data/models';
+import changeSubs from '../scripts/changeSubs';
 
 const jisho = new jishoApi();
 
@@ -21,6 +21,8 @@ const listJishoTerms = (jishoResp) => {
                                     return acc + `${idx+1}. ${cur}\n`;
                                }, '')
 
+        const reading = term.japanese[0].reading;
+
         let pos = '';
         if ( // its a verb
             term.senses[0].parts_of_speech[0].includes('verb') || 
@@ -36,7 +38,7 @@ const listJishoTerms = (jishoResp) => {
                 pos = term.senses[0].parts_of_speech[0];
         }
 
-        return [`${termString}`, `${def}`, `${pos}`];
+        return [`${termString}`, `${def}`, `${pos}`, `${reading}`];
     });
 }
 
@@ -141,14 +143,19 @@ const notesAddLoop = async (args) => {
                     // or, if it finds no notes...
                     } else {
                         // add the Jisho info to a new note
-                    }
-
-                    
+                        Anki.addNotes([{
+                            "deckName": DECK_IDS.main,
+                            "modelName": MODELS.japanese,
+                            "fields": {
+                                "Vocabulary": jishoTerms[0],
+                                "Vocabulary-Reading": jishoTerms[3],
+                                "Meaning": jishoTerms[1]
+                            },
+                            tags: tag
+                        }]);
+                    }   
                 }
-                //      if not, search in subs
-                //          if there, add 00change tag and term into 'notes'
-                //          if not, add a card with jisho def
-                console.log('vocab', vocab);
+                console.log('vocab', jishoTerms[0]);
                 vocabArchive.push(jishoTerms[0]);
             }
 
@@ -158,6 +165,8 @@ const notesAddLoop = async (args) => {
             console.log('No term found, re-running search');
         }
     }
+
+    changeSubs();
 }
 
 export default notesAddLoop;
