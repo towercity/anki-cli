@@ -3,6 +3,7 @@ import inquirer from 'inquirer';
 import colors from 'colors';
 import jishoApi from 'unofficial-jisho-api';
 import path from 'path';
+import MODELS from '../data/models';
 
 const jisho = new jishoApi();
 
@@ -117,10 +118,16 @@ const notesAddLoop = async (args) => {
                         rootWord = rootWord.slice(0,-1);
                         // note that this likely won't cause an issue with those few な addjectives that end with
                         // い, as the search term will still function
+                    // tests if the word's a verb
                     } else if (jishoTerms[2] === 'verb') {
-                        console.log('verb');
-                        // remove the last char only? all verbs end with the u/ru anywho?
+                        // if so, removes the last -u character
+                        rootWord = rootWord.slice(0,-1);
                     }
+
+                    const subsNotes = await Anki
+                        .findNotes(`note:${MODELS.subs2srs} ${rootWord}`);
+
+                    
                 }
                 //      if not, search in subs
                 //          if there, add 00change tag and term into 'notes'
