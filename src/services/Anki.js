@@ -97,6 +97,19 @@ const Anki = {
             "notes": noteIds,
             "tags": tag
         });
+    },
+
+    // updates selected fields in a note
+    // takes in the ID of the note to change and a 'fieldsObject',
+    // which is an object whose keys are the field to change and 
+    // the values are the new field content
+    updateNoteFields: (noteId, fieldsObject) => {
+        return Anki.request("updateNoteFields", {
+            "note": {
+                "id": noteId,
+                "fields": fieldsObject
+            }
+        });
     }
 }
 
