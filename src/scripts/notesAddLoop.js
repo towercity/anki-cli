@@ -131,6 +131,16 @@ const notesAddLoop = async (args) => {
                     if (subsNotes.length) {
                         // reduces the array to just its 1st entry
                         subsNotes = subsNotes.slice(0,1);
+                        // updates Note field
+                        Anki.updateNoteFields(subsNotes[0], {
+                            'Note': jishoTerms[0]
+                        });
+                        // adds tags
+                        Anki.addTags(`00change ${tag}`, subsNotes);
+                    
+                    // or, if it finds no notes...
+                    } else {
+                        // add the Jisho info to a new note
                     }
 
                     
