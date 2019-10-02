@@ -113,6 +113,7 @@ const notesAddLoop = async (args) => {
                     console.log(`Note already exists in database... adding tag ${`"${tag}"`.green}`);
                     Anki.addTags(tag, noteExists);
                 } else {
+                    console.log('Note does not yet exitst')
                     let rootWord = jishoTerms[0];
                     
                     // tests if the word's an い adjective
@@ -127,11 +128,13 @@ const notesAddLoop = async (args) => {
                         rootWord = rootWord.slice(0,-1);
                     }
 
+                    console.log('searching for notes in database with term...')
                     const subsNotes = await Anki
                         .findNotes(`note:${MODELS.subs2srs} ${rootWord}`);
 
                     // if it finds notes
                     if (subsNotes.length) {
+                        console.log('note found!\n preparing note...');
                         // reduces the array to just its 1st entry
                         subsNotes = subsNotes.slice(0,1);
                         // updates Note field
@@ -143,6 +146,7 @@ const notesAddLoop = async (args) => {
                     
                     // or, if it finds no notes...
                     } else {
+                        console.log('no notes found. adding new card...')
                         // add the Jisho info to a new note
                         Anki.addNotes([{
                             "deckName": DECK_IDS.main,
