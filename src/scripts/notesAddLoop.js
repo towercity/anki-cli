@@ -3,6 +3,7 @@ import inquirer from 'inquirer';
 import colors from 'colors';
 import jishoApi from 'unofficial-jisho-api';
 import MODELS from '../data/models';
+import DECK_IDS from '../data/deck_ids';
 import changeSubs from '../scripts/changeSubs';
 
 const jisho = new jishoApi();
