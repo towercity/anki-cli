@@ -127,6 +127,12 @@ const notesAddLoop = async (args) => {
                     const subsNotes = await Anki
                         .findNotes(`note:${MODELS.subs2srs} ${rootWord}`);
 
+                    // if it finds notes
+                    if (subsNotes.length) {
+                        // reduces the array to just its 1st entry
+                        subsNotes = subsNotes.slice(0,1);
+                    }
+
                     
                 }
                 //      if not, search in subs
