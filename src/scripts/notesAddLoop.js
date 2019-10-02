@@ -5,6 +5,7 @@ import jishoApi from 'unofficial-jisho-api';
 import MODELS from '../data/models';
 import DECK_IDS from '../data/deck_ids';
 import changeSubs from '../scripts/changeSubs';
+import logResult from './logResult';
 
 const jisho = new jishoApi();
 
@@ -142,7 +143,7 @@ const notesAddLoop = async (args) => {
                             'Note': jishoTerms[0]
                         });
                         // adds tags
-                        Anki.addTags(`00change ${tag}`, subsNotes);
+                        Anki.addTags('00change ' + tag, subsNotes);
                     
                     // or, if it finds no notes...
                     } else {
@@ -156,7 +157,7 @@ const notesAddLoop = async (args) => {
                                 "Vocabulary-Reading": jishoTerms[3],
                                 "Meaning": jishoTerms[1]
                             },
-                            tags: tag
+                            tags: [tag]
                         }]);
                     }   
                 }
