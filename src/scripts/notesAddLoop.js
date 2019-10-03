@@ -130,7 +130,7 @@ const notesAddLoop = async (args) => {
                     }
 
                     console.log('searching for notes in database with term...')
-                    const subsNotes = await Anki
+                    let subsNotes = await Anki
                         .findNotes(`note:${MODELS.subs2srs} ${rootWord}`);
 
                     // if it finds notes
