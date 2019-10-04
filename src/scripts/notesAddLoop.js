@@ -176,12 +176,12 @@ const notesAddLoop = async (args) => {
                         }]);
                     }   
                 }
-                console.log('vocab', currentVocab.term);
+                console.log('added', currentVocab.term);
                 vocabArchive.push(currentVocab.term);
             }
 
             // return results 
-            console.log('current archive', vocabArchive);
+            console.log('current archive length:', vocabArchive.length);
         }
     }
 
