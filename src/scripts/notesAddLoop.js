@@ -11,7 +11,7 @@ import DECK_IDS from '../data/deck_ids';
 const jisho = new jishoApi();
 
 // take a jishoResp obect and returns an array that holds objects of japanese terms and
-//  defintions
+// defintions
 const listcurrentVocab = (jishoResp) => {
     // the logic that filters thru the japanese object and returns a usable term
     return jishoResp.map((term) => {
@@ -51,6 +51,25 @@ const listcurrentVocab = (jishoResp) => {
             reading: `${reading}`
         }
     });
+}
+
+// takes in a Japanese string anfd pos and removes characters from the term that would
+// be removed in conjugation
+const findRoot = (term, pos) => {
+    // tests if the word's an い adjective
+    if (pos === 'adjective' && term[term.length - 1] === 'い') {
+        // if so, remove the い and return
+        return term.slice(0,-1);
+        // note that this likely won't cause an issue with those few な addjectives that end with
+        // い, as the search term will still function
+    // tests if the word's a verb
+    } else if (pos === 'verb') {
+        // if so, removes the last -u character
+        return term.slice(0,-1);
+    } else {
+        // no need to cut
+        return term;
+    }
 }
 
 // the main loop
@@ -123,19 +142,7 @@ const notesAddLoop = async (args) => {
                     Anki.addTags(tag, noteExists);
                 } else {
                     console.log('Note does not yet exitst')
-                    let rootWord = currentVocab.term;
-                    
-                    // tests if the word's an い adjective
-                    if (currentVocab.pos === 'adjective' && rootWord[rootWord.length - 1] === 'い') {
-                        // if so, remove the い
-                        rootWord = rootWord.slice(0,-1);
-                        // note that this likely won't cause an issue with those few な addjectives that end with
-                        // い, as the search term will still function
-                    // tests if the word's a verb
-                    } else if (currentVocab.pos === 'verb') {
-                        // if so, removes the last -u character
-                        rootWord = rootWord.slice(0,-1);
-                    }
+                    let rootWord = findRoot(currentVocab.term, currentVocab.pos);
 
                     console.log('searching for notes in database with term...')
                     let subsNotes = await Anki
