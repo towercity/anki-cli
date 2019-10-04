@@ -96,7 +96,9 @@ const notesAddLoop = async (args) => {
         // pull the first term from the jisho response and confirms if the user wants to add it
         const currentVocab = listcurrentVocab(jishoResp)[0];
         // checks that the word is not blank before running logic
-        if(currentVocab) {
+        if(!currentVocab) {
+            console.log('No term found, re-running search');
+        } else if(currentVocab) {
             console.log('\nSelected Term:'.cyan);
             console.log(currentVocab.term.green); // the term, highlighted
             console.log('Part of Speech:', currentVocab.pos); // the pos
@@ -173,8 +175,6 @@ const notesAddLoop = async (args) => {
 
             // return results 
             console.log('current archive', vocabArchive);
-        } else {
-            console.log('No term found, re-running search');
         }
     }
 
