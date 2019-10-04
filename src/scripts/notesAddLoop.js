@@ -40,7 +40,13 @@ const listJishoTerms = (jishoResp) => {
                 pos = term.senses[0].parts_of_speech[0];
         }
 
-        return [`${termString}`, `${def}`, `${pos}`, `${reading}`];
+        // return [`${termString}`, `${def}`, `${pos}`, `${reading}`];
+        return {
+            term: `${termString}`,
+            def: `${def}`, 
+            pos: `${pos}`, 
+            reading: `${reading}`
+        }
     });
 }
 
