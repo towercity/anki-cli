@@ -15,10 +15,13 @@ const jisho = new jishoApi();
 const listJishoTerms = (jishoResp) => {
     // the logic that filters thru the japanese object and returns a usable term
     return jishoResp.map((term) => {
+        // this logic exists because jishoApi() only returns a `word` if the word has
+        // Kanji. Thus, if there's no word, use the rading instead
         const termString = term.japanese[0].word ?
                            term.japanese[0].word :
                            term.japanese[0].reading
 
+        // combine all the definitions into one string
         const def = term.senses.map(sense => sense.english_definitions.join(', '))
                                .reduce((acc, cur, idx) => {
                                     return acc + `${idx+1}. ${cur}\n`;
@@ -41,7 +44,6 @@ const listJishoTerms = (jishoResp) => {
                 pos = term.senses[0].parts_of_speech[0];
         }
 
-        // return [`${termString}`, `${def}`, `${pos}`, `${reading}`];
         return {
             term: `${termString}`,
             def: `${def}`, 
