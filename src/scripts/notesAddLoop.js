@@ -96,11 +96,10 @@ const notesAddLoop = async (args) => {
         const jishoTerms = listJishoTerms(jishoResp)[0];
         // checks that the word is not blank before running logic
         if(jishoTerms) {
-            console.log(jishoTerms)
             console.log('\nSelected Term:'.cyan);
-            console.log(jishoTerms[0].green); // the term, highlighted
-            console.log('Part of Speech:', jishoTerms[2]); // the pos
-            console.log(jishoTerms[1]); // the definition
+            console.log(jishoTerms.term.green); // the term, highlighted
+            console.log('Part of Speech:', jishoTerms.pos); // the pos
+            console.log(jishoTerms.def); // the definition
 
             var confirm = await inquirer.prompt({
                 type:'confirm',
@@ -113,7 +112,7 @@ const notesAddLoop = async (args) => {
 
                 //search Anki for the term in Japanese note style; returns a truthy thing if exits
                 const noteExists = await Anki
-                    .findNotes('Vocabulary:' + jishoTerms[0]);
+                    .findNotes('Vocabulary:' + jishoTerms.term);
                 
                 if(noteExists.length) {
                     // add tag to card
@@ -121,16 +120,16 @@ const notesAddLoop = async (args) => {
                     Anki.addTags(tag, noteExists);
                 } else {
                     console.log('Note does not yet exitst')
-                    let rootWord = jishoTerms[0];
+                    let rootWord = jishoTerms.term;
                     
                     // tests if the word's an い adjective
-                    if (jishoTerms[2] === 'adjective' && rootWord[rootWord.length - 1] === 'い') {
+                    if (jishoTerms.pos === 'adjective' && rootWord[rootWord.length - 1] === 'い') {
                         // if so, remove the い
                         rootWord = rootWord.slice(0,-1);
                         // note that this likely won't cause an issue with those few な addjectives that end with
                         // い, as the search term will still function
                     // tests if the word's a verb
-                    } else if (jishoTerms[2] === 'verb') {
+                    } else if (jishoTerms.pos === 'verb') {
                         // if so, removes the last -u character
                         rootWord = rootWord.slice(0,-1);
                     }
@@ -146,7 +145,7 @@ const notesAddLoop = async (args) => {
                         subsNotes = subsNotes.slice(0,1);
                         // updates Note field
                         Anki.updateNoteFields(subsNotes[0], {
-                            'Note': jishoTerms[0]
+                            'Note': jishoTerms.term
                         });
                         // adds tags
                         Anki.addTags('00change ' + tag, subsNotes);
@@ -159,16 +158,16 @@ const notesAddLoop = async (args) => {
                             "deckName": DECK_IDS.main,
                             "modelName": MODELS.japanese,
                             "fields": {
-                                "Vocabulary": jishoTerms[0],
-                                "Vocabulary-Reading": jishoTerms[3],
-                                "Meaning": jishoTerms[1]
+                                "Vocabulary": jishoTerms.term,
+                                "Vocabulary-Reading": jishoTerms.reading,
+                                "Meaning": jishoTerms.def
                             },
                             tags: [tag]
                         }]);
                     }   
                 }
-                console.log('vocab', jishoTerms[0]);
-                vocabArchive.push(jishoTerms[0]);
+                console.log('vocab', jishoTerms.term);
+                vocabArchive.push(jishoTerms.term);
             }
 
             // return results 
