@@ -113,7 +113,7 @@ const notesAddLoop = async (args) => {
             if(confirm.addTerm) {
                 // add the term
 
-                //search Anki for the term in Japanese note style; returns a truthy thing if exits
+                // search Anki for the term in Japanese note style; returns a truthy thing if exits
                 const noteExists = await Anki
                     .findNotes('Vocabulary:' + currentVocab.term);
                 
